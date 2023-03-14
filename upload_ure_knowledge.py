@@ -1,19 +1,6 @@
 import argparse
-import requests
 
-def upload_ure_knowledge(upload_file, is_file_overwrite=False):
-    url = "https://api.rinna.co.jp/models/ure/v5.2/knowledge-file-upload"
-    headers = {"Content-Type": "multipart/form-data"}
-    params = {"is_file_overwrite": is_file_overwrite}
-    files = {"upload_file": upload_file}
-
-    response = requests.post(url, headers=headers, params=params, files=files)
-
-    if response.status_code == 200:
-        return response.json()["knowledgeSetId"]
-    else:
-        raise Exception(f"Upload failed with status code {response.status_code}")
-
+from rinna_ure import upload_ure_knowledge
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Upload a knowledge file to URE.")
