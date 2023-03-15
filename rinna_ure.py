@@ -1,8 +1,12 @@
+import os
 import requests
 
 def upload_ure_knowledge(upload_file, is_file_overwrite=False):
     url = "https://api.rinna.co.jp/models/ure/v5.2/knowledge-file-upload"
-    headers = {"Content-Type": "multipart/form-data"}
+    headers = {
+        "Content-Type": "multipart/form-data",
+        "Ocp-Apim-Subscription-Key": os.environ.get('RINNA_URE_SUBSCRIPTION')
+    }
     params = {"is_file_overwrite": is_file_overwrite}
     files = {"upload_file": upload_file}
 
@@ -13,13 +17,13 @@ def upload_ure_knowledge(upload_file, is_file_overwrite=False):
     else:
         raise Exception(f"Upload failed with status code {response.status_code}")
     
-def get_ure_answer(query, l2ReturnNum=3, l3ReturnNum=1):
+def get_ure_answer(query, knowledgeSetId, l2ReturnNum=3, l3ReturnNum=1):
     url = "https://api.rinna.co.jp/models/ure/v5.2"
     headers = {
         "Content-Type": "multipart/form-data",
-        "Cache-Control": "no-cache"
+        "Cache-Control": "no-cache",
+        "Ocp-Apim-Subscription-Key": os.environ.get('RINNA_URE_SUBSCRIPTION')
     }
-    knowledgeSetId = "default"
     data = {
         "knowledgeSetId": knowledgeSetId,
         "queries": [query],
