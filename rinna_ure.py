@@ -5,7 +5,7 @@ import requests
 def upload_ure_knowledge(upload_file, is_file_overwrite=False):
     url = "https://api.rinna.co.jp/models/ure/v5.2/knowledge-file-upload"
     headers = {
-        "Ocp-Apim-Subscription-Key": os.environ.get('RINNA_URE_SUBSCRIPTION')
+        "Ocp-Apim-Subscription-Key": os.environ.get('RINNA_URE_SUBSCRIPTION_KEY')
     }
     params = {"is_file_overwrite": is_file_overwrite}
     files = {"upload_file": upload_file}
@@ -22,7 +22,7 @@ def get_ure_answer(query, knowledgeSetId, l2ReturnNum=3, l3ReturnNum=1):
     headers = {
         "Content-Type": "application/json",
         "Cache-Control": "no-cache",
-        "Ocp-Apim-Subscription-Key": os.environ.get('RINNA_URE_SUBSCRIPTION')
+        "Ocp-Apim-Subscription-Key": os.environ.get('RINNA_URE_SUBSCRIPTION_KEY')
     }
     data = {
         "knowledgeSetId": knowledgeSetId,
