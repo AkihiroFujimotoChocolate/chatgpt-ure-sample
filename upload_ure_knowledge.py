@@ -1,6 +1,10 @@
+import os
 import argparse
 
 from rinna_ure import upload_ure_knowledge
+
+from dotenv import load_dotenv, find_dotenv
+load_dotenv(find_dotenv())
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Upload a knowledge file to URE.")
