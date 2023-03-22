@@ -2,8 +2,9 @@ import os
 import argparse
 import openai
 import time
+import random
 
-from rinna_ure import get_ure_answer
+from rinna_ure import get_ure_answers
 
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
@@ -15,7 +16,7 @@ if __name__ == "__main__":
 
 
     user_query = args.query
-    knowledge = get_ure_answer(user_query, os.environ.get('URE_KNOWLEDGE_SET_ID'))
+    knowledge = random_element = random.choice(get_ure_answers(user_query, os.environ.get('URE_KNOWLEDGE_SET_ID')))
     print(f"knowledge: {knowledge}")
 
     order="""あなたは乙女ゲームの悪役令嬢です。以下の設定に従い、ユーザと会話してください
@@ -36,7 +37,7 @@ example_conversation:
       messages=[
         {"role": "system", "content": order},
         {"role": "user", "content": user_query},
-        {"role": "system", "content": f"knowledge: {knowledge}"},
+        {"role": "system", "content": f"knowledge: {knowledge['document']}"},
         {"role": "system", "content": attention},
       ]
     )
