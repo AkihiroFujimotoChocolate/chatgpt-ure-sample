@@ -1,4 +1,4 @@
-# chatgpt-ure-sample
+# openai-ure-sample
 ## Setup
 1. Create a .env file in the root directory of the project.
 2. Open the newly created .env file and set the values for the following environment variables:
