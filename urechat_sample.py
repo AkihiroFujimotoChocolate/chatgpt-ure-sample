@@ -1,8 +1,11 @@
 import os
 import argparse
-import openai
 import time
 import random
+
+from openai import OpenAI
+client = OpenAI()
+client.api_key = os.environ.get('OPENAI_API_KEY')
 
 from rinna_ure import get_ure_answers
 
@@ -36,7 +39,7 @@ Conversation-Example:
     attention="""あなたは乙女ゲームの悪役令嬢です。悪役令嬢らしく答えて
 Answer in 140 characters in Japanease."""
 
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
       model="gpt-3.5-turbo",
       messages=[
         {"role": "system", "content": order},
@@ -46,7 +49,7 @@ Answer in 140 characters in Japanease."""
       ]
     )
     end_time = time.time()
-    response_content = response["choices"][0]["message"]["content"]
+    response_content = response.choices[0].message.content.strip()
 
     print(f"response: {response_content}")
     print(f"Text length: {len(response_content)}")
